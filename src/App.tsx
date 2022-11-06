@@ -6,6 +6,21 @@ const PROGRAM_MEMORY = 512;
 const DISPLAY_WIDTH = 64;
 const DISPLAY_HEIGHT = 32;
 
+const codes = {
+    maze: [
+        'a21e', 'c201', '3201', 'a21a', 'd014', '7004', '3040', '1200',
+        '6000', '7104', '3120', '1200', '1218', '8040', '2010', '2040',
+        '8010',
+    ],
+    mazeAlt: [
+        '6000', '6100', 'a222', 'c201', '3201', 'a21e', 'd014', '7004',
+        '3040', '1204', '6000', '7104', '3120', '1204', '121c', '8040',
+        '2010', '2040', '8010',
+    ],
+}
+
+const code = codes.mazeAlt.map(instruction => instruction.toUpperCase());
+
 let i = 0;
 let pc = PROGRAM_MEMORY;
 const memory = Array(4096).fill(0);
@@ -71,12 +86,6 @@ const opcodes = {
         pc = nnn;
     }
 }
-
-const code = [
-    'a21e', 'c201', '3201', 'a21a', 'd014', '7004', '3040', '1200',
-    '6000', '7104', '3120', '1200', '1218', '8040', '2010', '2040',
-    '8010',
-].map(s => s.toUpperCase());
 
 function parameterToMatcher(parameter: string) {
     return `(.{${parameter.length}})`;
