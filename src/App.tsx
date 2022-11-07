@@ -82,7 +82,7 @@ let pc = PROGRAM_MEMORY;
 const memory = Array(4096).fill(0);
 const stack = [];
 const v = Array(8).fill(0);
-const sp = () => stack.length;
+// const sp = () => stack.length;
 
 const display = matrix(64, 32);
 
@@ -123,6 +123,8 @@ function disassemble(rawInstruction: string): Instruction {
                 parameters: match.splice(1).map(parameter => parseInt(parameter, 16)),
             }
         }
+
+        return undefined;
     });
 
     const filteredMatches = matches.filter(Boolean);
