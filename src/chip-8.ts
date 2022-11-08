@@ -1,12 +1,15 @@
 import {matrix} from "./utils";
 import {OpcodeMatcher} from "./opcode-matcher";
 import {opcodes} from "./opcodes";
+import {original} from "./font";
 
-export const PROGRAM_MEMORY = 512;
 
 export class Chip8 {
+    PROGRAM_MEMORY = 512;
+    FONT_MEMORY = 0x50;
+
     i = 0;
-    pc = PROGRAM_MEMORY;
+    pc = this.PROGRAM_MEMORY;
     // TODO: can we replace this with buffers?
     v = Array(16).fill(0);
     display = matrix(64, 32);
@@ -27,11 +30,13 @@ export class Chip8 {
         if (code) {
             this.loadFromHexDump(code)
         }
+
+        this.loadFont(original);
     }
 
     reset() {
         this.i = 0;
-        this.pc = PROGRAM_MEMORY;
+        this.pc = this.PROGRAM_MEMORY;
         this.v = Array(16).fill(0);
         this.clearDisplay();
         this.stack = [];
@@ -62,18 +67,25 @@ export class Chip8 {
         implementation(this, ...instruction.parameters);
     }
 
+    loadFont(font: number[]) {
+        for (let i = 0; i < font.length; i++) {
+            this.memory[this.FONT_MEMORY + i] = font[i];
+        }
+    }
+
+    // TODO @deprecated
     loadFromHexDump(code: any[]) {
         this.reset();
         code.forEach((instruction, i) => {
-            this.memory[PROGRAM_MEMORY + i * 2] = parseInt(instruction.slice(0, 2), 16);
-            this.memory[PROGRAM_MEMORY + i * 2 + 1] = parseInt(instruction.slice(2, 4), 16);
+            this.memory[this.PROGRAM_MEMORY + i * 2] = parseInt(instruction.slice(0, 2), 16);
+            this.memory[this.PROGRAM_MEMORY + i * 2 + 1] = parseInt(instruction.slice(2, 4), 16);
         });
     }
 
     loadFromArrayBuffer(code: Uint8Array) {
         this.reset();
         code.forEach((value, i) => {
-            this.memory[PROGRAM_MEMORY + i] = value;
+            this.memory[this.PROGRAM_MEMORY + i] = value;
         })
     }
 

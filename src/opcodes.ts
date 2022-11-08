@@ -224,26 +224,33 @@ export const opcodes: Record<string, Opcode> = {
     'EXF5': () => {
         debugger;
     },
+    // Set VX equal to the delay timer.
     'FX07': () => {
-        debugger;
+        // TODO
     },
-    'FX0A': () => {
-        debugger;
+    // Wait for a key press and store the value of the key into VX.
+    'FX0A': (cpu, x) => {
+        cpu.v[x] = 2; // TODO input
     },
+    // Set the delay timer DT to VX.
     'FX15': () => {
-        debugger;
+        // TODO
     },
     'FX18': () => {
         debugger;
     },
-    'FX29': () => {
-        debugger;
+    'FX29': (cpu, x) => {
+        cpu.i = cpu.FONT_MEMORY + cpu.v[x] * 5;
     },
     'FX30': () => {
         debugger;
     },
-    'FX33': () => {
-        debugger;
+    'FX33': (cpu, x) => {
+        const vx = cpu.v[x];
+
+        cpu.memory[cpu.i + 2] = vx % 10;
+        cpu.memory[cpu.i + 1] = Math.floor(vx / 10) % 10;
+        cpu.memory[cpu.i + 0] = Math.floor(vx / 100) % 10;
     },
     'FX75': () => {
         debugger;

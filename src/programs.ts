@@ -1,3 +1,12 @@
+export const hello = [
+    '6000', // 6XNN = set v[0] = 1
+    'f029', // FX29 = load font at address vx[0] to I
+    '6105', // 6XNN = set v[1]
+    '6205', // 6XNN = set v[2]
+    'd125', // draw 5 byte at vx,vy
+    '120a', // jump to here
+];
+
 export const maze = [
     'a21e', 'c201', '3201', 'a21a', 'd014', '7004', '3040', '1200',
     '6000', '7104', '3120', '1200', '1218', '8040', '2010', '2040',
