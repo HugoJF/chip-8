@@ -40,7 +40,6 @@ export class OpcodeMatcher {
         ])
 
         this.opcodes = orderOpcodes(this.opcodes);
-        console.log({order: this.opcodes})
     }
 
     regexFromParameter(parameter: string) {

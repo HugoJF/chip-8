@@ -13,3 +13,7 @@ export function deepClone(subject: any) {
 export function matrix(x: number, y: number) {
     return Array(x).fill(0).map(() => Array(y).fill(0))
 }
+
+export function clamp (x: number, min: number, max: number) {
+    return Math.min(Math.max(x, min), max);
+}
