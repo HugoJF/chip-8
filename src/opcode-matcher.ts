@@ -2,6 +2,22 @@ import {opcodes} from "./opcodes";
 
 const parameters = ['X', 'Y', 'NNN', 'NN', 'N'];
 
+function opcodeLevel(instruction: string) {
+    if (instruction.indexOf('NNN') !== -1) {
+        return 3;
+    }
+    if (instruction.indexOf('NN') !== -1) {
+        return 2;
+    }
+    return 1;
+}
+
+const orderOpcodes = function (codes: [string, string][]) {
+    return codes.sort((a, b) => {
+        return opcodeLevel(a[0]) - opcodeLevel(b[0]);
+    })
+}
+
 interface Instruction {
     instruction: string,
     opcode: keyof typeof opcodes,
@@ -22,6 +38,9 @@ export class OpcodeMatcher {
             opcode,
             this.regexForInstruction(opcode),
         ])
+
+        this.opcodes = orderOpcodes(this.opcodes);
+        console.log({order: this.opcodes})
     }
 
     regexFromParameter(parameter: string) {

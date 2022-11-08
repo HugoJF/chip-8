@@ -1,11 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, {DragEventHandler, useRef, useState} from 'react';
 import './App.css';
 import {useInterval} from "usehooks-ts";
 import {Chip8} from "./chip-8";
 import {maze} from "./programs";
 
 const FPS = 30;
-const UPS = 60;
+const UPS = 120;
 
 function App() {
     const cpu = useRef(new Chip8(maze));
@@ -21,18 +21,28 @@ function App() {
         cpu.current.step();
     }, 1000 / UPS)
 
-    return <div className="display">
-        <input onChange={(e) => {
-            console.log(e.target.files)
+    const handleOnDragOver: DragEventHandler<HTMLDivElement> = e => {
+        e.preventDefault();
+    }
 
-            const reader = new FileReader();
-            reader.addEventListener('load', (event) => {
-                const result = event.target!.result as ArrayBuffer;
-                if (!result) return;
-                console.log(new Uint8Array(result))
-            });
-            reader.readAsArrayBuffer(e.target.files![0]);
-        }} type="file"/>
+    const handleOnDrop: DragEventHandler<HTMLDivElement> = e => {
+        e.preventDefault();
+        const file = e.dataTransfer.files.item(0);
+        if (!file) {
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.addEventListener('load', (event) => {
+            const result = event.target!.result as ArrayBuffer;
+            if (result) {
+                cpu.current.loadFromArrayBuffer(new Uint8Array(result))
+            }
+        });
+        reader.readAsArrayBuffer(file);
+    }
+
+    return <div className="display" onDragOver={handleOnDragOver} onDrop={handleOnDrop}>
         {render.map((column, x) => (
             <div className="display__column">
                 {column.map((value, y) => (
