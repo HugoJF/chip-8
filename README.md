@@ -1,46 +1,18 @@
-# Getting Started with Create React App
+# Chip-8
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can quickly explore the deployed demo here: https://chip8.hugo.dev.br/
 
-## Available Scripts
+## Yey another Chip-8 implementation, why?
 
-In the project directory, you can run:
+The original plan for the code base, was to quickly (and somewhat terribly) implement just enough to run the Maze demo. It started as a PoC to use regular expressions to match instructions and extract parameters (yes, this project parses instructions as a hex string). After a few passes, I ended up adding more opcodes to the code base, reaching a point of running most demos available for download (aside from demos that use sound, timing and input).
 
-### `npm start`
+It's currently implemented next to React, which is currently being used to render the display (each pixel is a `div`), which may not be the fastest solution, but was the quickest way to get scalable graphics.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Most of the source code could be improved and revised, as this is my first time dealing with bit-level stuff in Typescript. There are no plans or roadmaps for this project, it's not even expected to reach a final complete version.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Planned features
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [x] Drag and Drop support;
+- [ ] Step by step;
+- [ ] Register and memory visualization;
+- [ ] PoC of a machine code "micro-framework".
